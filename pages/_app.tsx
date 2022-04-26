@@ -1,20 +1,31 @@
-import '../src/styles/globals.css'
-import type { AppProps } from 'next/app'
-import Top from '../src/components/Top'
-import { Html } from 'next/document'
-import Head from 'next/head'
-import Footer from '../src/components/Footer'
+import '../src/styles/globals.css';
+import type { AppProps } from 'next/app';
+import Top from '../src/components/Top';
+import { Html } from 'next/document';
+import Head from 'next/head';
+import Footer from '../src/components/Footer';
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <>
+      <Head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Inter&display=optional"
+          rel="stylesheet"
+        />
+        <meta property="Gini" content="Gini blog" />
+        <title>Gini</title>
+      </Head>
       <Top />
-      <Component {...pageProps} />
-      <Footer/>
-    </>)
+      <div className="mainTap">
+        <Component {...pageProps} />
+      </div>
+      <Footer />
+    </>
+  );
 }
 
-export default MyApp
+export default MyApp;
 
 /**
  * 페이지 전환시 레이아웃 유지
