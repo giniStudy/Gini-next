@@ -1,5 +1,10 @@
-import Top from "../../src/components/Top";
+import Top from '../../src/components/Top';
+import TabLayout from '../../src/layouts/TabLayout';
 
 export default function post() {
-    return (<div>post</div>)
+  return (
+    <TabLayout>
+      <div>post</div>
+    </TabLayout>
+  );
 }
