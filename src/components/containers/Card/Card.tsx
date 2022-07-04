@@ -67,6 +67,7 @@ export const Card: React.FC<IProps> = ({ board }) => {
                       : colorAry[idx - colorAry.length]
                   }
                   key={idx}
+                  style={{ marginBottom: 5 }}
                 >
                   {s.toUpperCase()}
                 </Tag>
