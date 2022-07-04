@@ -1,9 +1,8 @@
 import type { NextPage } from 'next';
-import React from 'react';
 
 const HomePage: NextPage = () => {
   return (
-    <div style={{ padding: 24, textAlign: 'center', background: '#fff' }}>
+    <div>
       ...
       <br />
       Really

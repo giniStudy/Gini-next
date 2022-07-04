@@ -1,33 +1,79 @@
 import { IProps } from './types';
-import Link from 'next/link';
-import DateUtils from '../../../utils/DateUtils';
+import { Card as AntdCard, Divider, Tag } from 'antd';
 
-export const Card: React.FC<IProps> = ({
-  id = 1,
-  title = 'test',
-  content = 'test',
-  writer = 'donghyun',
-  tags = ['javasscript', 'typescript'],
-  create = new Date(),
-}) => {
+export const Card: React.FC<IProps> = ({ card }) => {
+  const tagAry = [
+    'JAVA',
+    'JAVASCRIPT',
+    'NODE',
+    'TIL',
+    'REACT',
+    'SPA',
+    'MYSQL',
+    'JAVA',
+    'JAVASCRIPT',
+    'NODE',
+    'TIL',
+    'REACT',
+    'SPA',
+    'MYSQL',
+    'JAVA',
+    'JAVASCRIPT',
+    'NODE',
+    'TIL',
+    'REACT',
+    'SPA',
+    'MYSQL',
+  ];
+  const colorAry = [
+    'magenta',
+    'red',
+    'volcano',
+    'orange',
+    'gold',
+    'lime',
+    'green',
+    'cyan',
+    'blue',
+    'geekblue',
+    'purple',
+  ];
   return (
-    <article key={id}>
-      <h2>{title}</h2>
-      <div>{content}</div>
-      <div>
-        {tags.map((tag, index) => (
+    <AntdCard
+      title={card}
+      bordered={true}
+      hoverable={true}
+      style={{
+        width: '70%',
+        margin: 'auto',
+        marginBottom: 30,
+        textAlign: 'left',
+      }}
+      loading={!card}
+    >
+      <p>Card content</p>
+      <p>Card content</p>
+      <p>Card content</p>
+      {tagAry && (
+        <>
+          <Divider orientation="left">HashTag</Divider>
           <div>
-            <Link href="" key={index}>
-              {tag}
-            </Link>
+            {tagAry.sort().map((s, index) => {
+              return (
+                <Tag
+                  color={
+                    colorAry[index]
+                      ? colorAry[index]
+                      : colorAry[index - colorAry.length]
+                  }
+                >
+                  {s.toUpperCase()}
+                </Tag>
+              );
+            })}
           </div>
-        ))}
-      </div>
-
-      <footer>
-        <label>{writer}</label>
-        <label>{DateUtils.dateToString(create)}</label>
-      </footer>
-    </article>
+        </>
+      )}
+    </AntdCard>
   );
 };
