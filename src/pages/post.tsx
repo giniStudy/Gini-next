@@ -5,7 +5,6 @@ import { useState } from 'react';
 
 const Post: NextPage = (data: any) => {
   const [boardList, setBoardList] = useState(data.data);
-
   return (
     <>
       {boardList &&

@@ -2,8 +2,17 @@ import type { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { Footer, Sider, Content } from '../components/layout';
+import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const router = useRouter();
+
+  useEffect(() => {
+    if (router.pathname === '/') {
+      router.push('/post?page=1&size=10');
+    }
+  }, []);
   return (
     <>
       <Layout hasSider>
