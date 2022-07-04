@@ -18,6 +18,7 @@ export const Sider: React.FC<IProps> = ({}) => {
         left: 0,
         top: 0,
         bottom: 0,
+        background: '#C8C7C3',
       }}
     >
       <Icon

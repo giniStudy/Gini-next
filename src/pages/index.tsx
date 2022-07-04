@@ -1,9 +1,13 @@
 import type { NextPage } from 'next';
 import { useRouter } from 'next/router';
+import { useEffect } from 'react';
 
 const HomePage: NextPage = () => {
   const router = useRouter();
-  router.push('/post?page=1&size=10');
+  useEffect(() => {
+    router.push('/post?page=1&size=10');
+  }, []);
+
   return <></>;
 };
 

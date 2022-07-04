@@ -28,7 +28,8 @@ export const Navigation: React.FC<IProps> = ({}) => {
       defaultOpenKeys={[currentPath]}
       selectedKeys={[currentPath]}
       mode="vertical"
-      theme="dark"
+      style={{ background: '#C8C7C3' }}
+      theme={'dark'}
       items={menuItems}
     />
   );
