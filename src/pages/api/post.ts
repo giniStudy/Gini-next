@@ -19,5 +19,7 @@ export default async function handler(req: any, res: any) {
   const end = Number(page) * Number(size);
   const filteredBoardList = boardList.slice(start, end);
 
-  return res.status(200).json(filteredBoardList);
+  return res
+    .status(200)
+    .json({ boardList: filteredBoardList, totalCount: boardList.length });
 }
