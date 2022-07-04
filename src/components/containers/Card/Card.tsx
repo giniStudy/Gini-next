@@ -1,7 +1,7 @@
 import { IProps } from './types';
 import { Card as AntdCard, Divider, Tag } from 'antd';
 
-export const Card: React.FC<IProps> = ({ card }) => {
+export const Card: React.FC<IProps> = ({ board }) => {
   const tagAry = [
     'JAVA',
     'JAVASCRIPT',
@@ -40,7 +40,7 @@ export const Card: React.FC<IProps> = ({ card }) => {
   ];
   return (
     <AntdCard
-      title={card}
+      title={board.title}
       bordered={true}
       hoverable={true}
       style={{
@@ -49,7 +49,7 @@ export const Card: React.FC<IProps> = ({ card }) => {
         marginBottom: 30,
         textAlign: 'left',
       }}
-      loading={!card}
+      loading={!board}
     >
       <p>Card content</p>
       <p>Card content</p>
@@ -58,14 +58,15 @@ export const Card: React.FC<IProps> = ({ card }) => {
         <>
           <Divider orientation="left">HashTag</Divider>
           <div>
-            {tagAry.sort().map((s, index) => {
+            {tagAry.sort().map((s, idx) => {
               return (
                 <Tag
                   color={
-                    colorAry[index]
-                      ? colorAry[index]
-                      : colorAry[index - colorAry.length]
+                    colorAry[idx]
+                      ? colorAry[idx]
+                      : colorAry[idx - colorAry.length]
                   }
+                  key={idx}
                 >
                   {s.toUpperCase()}
                 </Tag>

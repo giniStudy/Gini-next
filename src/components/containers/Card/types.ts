@@ -1,3 +1,3 @@
 export interface IProps {
-  card: string;
+  board: { id: string; title: string; content: string };
 }

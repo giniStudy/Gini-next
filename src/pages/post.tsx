@@ -1,28 +1,27 @@
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
+import axios from 'axios';
 import { Card } from '../components/containers/Card';
 
-const Post: NextPage = ({}) => {
-  const tempCard = [
-    'title1',
-    'title2',
-    'title3',
-    'title4',
-    'title5',
-    'title6',
-    'title7',
-    'title8',
-    'title9',
-    'title10',
-    'title11',
-  ];
+const Post: NextPage = (data: any) => {
+  const { data: boardList } = data;
 
   return (
     <>
-      {tempCard.map((card, index) => {
-        return <Card card={card} key={index} />;
-      })}
+      {boardList &&
+        boardList.map((board: any) => {
+          return <Card board={board} key={board.id} />;
+        })}
     </>
   );
 };
 
+export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+  const { page, size } = query;
+  const res = await axios.get(
+    `http://localhost:3000/api/post?page=${page}&size=${size}`,
+  );
+  const data = res.data;
+
+  return { props: { data } };
+};
 export default Post;
