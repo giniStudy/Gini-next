@@ -1,9 +1,10 @@
 import { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import { Card } from '../components/containers/Card';
+import { useState } from 'react';
 
 const Post: NextPage = (data: any) => {
-  const { data: boardList } = data;
+  const [boardList, setBoardList] = useState(data.data);
 
   return (
     <>
