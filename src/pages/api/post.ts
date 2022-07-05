@@ -1,4 +1,4 @@
-import boardList from './data.json';
+import postList from './data.json';
 
 export default async function handler(req: any, res: any) {
   const { page = 1, size = 10 } = req.url
@@ -17,9 +17,10 @@ export default async function handler(req: any, res: any) {
 
   const start = (Number(page) - 1) * Number(size);
   const end = Number(page) * Number(size);
-  const filteredBoardList = boardList.slice(start, end);
+  const filteredPostList = postList.slice(start, end);
 
-  return res
-    .status(200)
-    .json({ boardList: filteredBoardList, totalCount: boardList.length });
+  return res.status(200).json({
+    postList: filteredPostList,
+    totalCount: postList.length,
+  });
 }

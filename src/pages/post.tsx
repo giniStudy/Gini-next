@@ -1,15 +1,23 @@
-import { NextPage, GetServerSideProps } from 'next';
+import { NextPage } from 'next';
 import axios from 'axios';
 import { Card } from '../components/containers/Card';
+import { Spinner } from '../components/containers/Spinner';
 import useIntersectionObserver from '../hook/useIntersectionObserver';
 import { useState, useEffect } from 'react';
+import { IPostListResponse, Post } from '../interfaces/post';
+import { Empty } from 'antd';
+import { SearchInput } from '../components/containers/SearchInput';
 
-const Post: NextPage = (data: any) => {
-  const [boardList, setBoardList] = useState(data.data.boardList);
-  const [loading, setLoading] = useState(false);
+const PAGE_SIZE = 10;
+
+const PostPage: NextPage = () => {
+  const [postList, setPostList] = useState<Post[]>([]);
+  const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<number>(1);
-  const [total, setTotal] = useState<number>(data.data.totalCount);
+  const [total, setTotal] = useState<number>(1);
   const [error, setError] = useState<any>(undefined);
+  const [needDataRefresh, setNeedDataRefresh] = useState<boolean>(false);
+  const [searchText, setSearchText] = useState<string>('');
 
   const onIntersect: IntersectionObserverCallback = async (
     [entry],
@@ -17,20 +25,33 @@ const Post: NextPage = (data: any) => {
   ) => {
     if (entry.isIntersecting && !loading) {
       observer.unobserve(entry.target);
-      if (total > page * 10) setPage(page + 1);
+      if (!loading && total > page * PAGE_SIZE) setPage(page + 1);
       observer.observe(entry.target);
     }
   };
 
   useEffect(() => {
+    if (needDataRefresh) {
+      setPostList([]);
+      setNeedDataRefresh(false);
+    }
+  }, [needDataRefresh]);
+
+  useEffect(() => {
     const handleCallApi = async () => {
       setLoading(true);
+      if (searchText) {
+      }
       try {
-        const { data } = await axios.get(`/api/post?page=${page}&size=${10}`);
-        const { boardList: fetchedBoardList, totalCount } = data;
-        setTotal(totalCount);
+        const searchUrl =
+          searchText === ''
+            ? `/api/post?page=${page}&size=${PAGE_SIZE}`
+            : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${searchText}`;
+        const { data } = await axios.get<IPostListResponse>(searchUrl);
+        const { postList: fetchedPostList, totalCount } = data;
 
-        setBoardList(boardList.concat(fetchedBoardList));
+        setTotal(totalCount);
+        await setPostList(postList.concat(fetchedPostList));
       } catch (e) {
         setError(e);
       } finally {
@@ -38,7 +59,7 @@ const Post: NextPage = (data: any) => {
       }
     };
     handleCallApi();
-  }, [page]);
+  }, [page, searchText]);
 
   const { setTarget } = useIntersectionObserver({
     root: null,
@@ -47,26 +68,25 @@ const Post: NextPage = (data: any) => {
     onIntersect,
   });
 
+  const handleOnSearch = (value: string) => {
+    setNeedDataRefresh(true);
+    setSearchText(value);
+  };
   return (
     <>
-      <div>
-        {boardList.map((board: any, index: number) => {
-          return <Card board={board} key={index} />;
-        })}
+      <div style={{ marginBottom: 30 }}>
+        <SearchInput onSearch={handleOnSearch} loading={loading} />
       </div>
 
-      <div ref={setTarget}>{loading && <div>Loading...</div>}</div>
+      {(!postList || total === 0) && <Empty />}
+      {!error &&
+        postList &&
+        postList.map((post: any, index: number) => {
+          return <Card post={post} key={index} />;
+        })}
+
+      <div ref={setTarget}>{loading && <Spinner />}</div>
     </>
   );
 };
-
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-  const { page, size } = query;
-  const res = await axios.get(
-    `http://localhost:3000/api/post?page=${page}&size=${size}`,
-  );
-  const data = res.data;
-
-  return { props: { data } };
-};
-export default Post;
+export default PostPage;

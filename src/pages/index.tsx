@@ -5,7 +5,7 @@ import { useEffect } from 'react';
 const HomePage: NextPage = () => {
   const router = useRouter();
   useEffect(() => {
-    router.push('/post?page=1&size=10');
+    router.push('/post?page=1');
   }, []);
 
   return <></>;

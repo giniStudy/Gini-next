@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
 
-const Dev: NextPage = () => {
+const DevPage: NextPage = () => {
   return <></>;
 };
 
-export default Dev;
+export default DevPage;

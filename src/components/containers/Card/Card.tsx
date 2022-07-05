@@ -1,7 +1,7 @@
 import { IProps } from './types';
 import { Card as AntdCard, Divider, Tag } from 'antd';
 
-export const Card: React.FC<IProps> = ({ board }) => {
+export const Card: React.FC<IProps> = ({ post }) => {
   const tagAry = [
     'JAVA',
     'JAVASCRIPT',
@@ -40,7 +40,7 @@ export const Card: React.FC<IProps> = ({ board }) => {
   ];
   return (
     <AntdCard
-      title={board.title}
+      title={post.title}
       bordered={true}
       hoverable={true}
       style={{
@@ -49,7 +49,7 @@ export const Card: React.FC<IProps> = ({ board }) => {
         marginBottom: 30,
         textAlign: 'left',
       }}
-      loading={!board}
+      loading={!post}
     >
       <p>Card content</p>
       <p>Card content</p>
