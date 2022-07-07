@@ -1,7 +1,7 @@
 import { NextPage } from 'next';
-import { Space } from 'antd';
-import { useEffect, useState, useCallback } from 'react';
 import { MarkdownViewer } from '../components/containers/Markdown';
+import { ImageCard } from '../components/containers/Card/ImageCard';
+import { Col, Row } from 'antd';
 
 const md = `### Hello:raised_hand: My name is SungHoon and I'm Junior FE Developer.:baby:<br/>
 ![sasumpi123's github stats](https://github-readme-stats.vercel.app/api?username=sasumpi123&show_icons=true)[![sasumpi123's github stats](https://github-readme-stats.vercel.app/api/top-langs/?username=sasumpi123&show_icons=true&hide_border=true&title_color=004386&icon_color=004386&layout=compact)](https://github.com/sasumpi123)
@@ -16,21 +16,29 @@ const md = `### Hello:raised_hand: My name is SungHoon and I'm Junior FE Develop
 <code><img height="20" src="https://raw.githubusercontent.com/github/explore/80688e429a7d4ef2fca1e82350fe8e3517d3494d/topics/python/python.png"></code>
 `;
 const AboutPage: NextPage = () => {
-  const [value, setValue] = useState(md);
-
-  const handleChange = useCallback((value: any) => {
-    setValue(value);
-  }, []);
   return (
     <>
       <MarkdownViewer
-        value={value}
-        onChange={handleChange}
+        value={md}
         hideToolbar={true}
         height={700}
         preview={'preview'}
         highlightEnable={false}
       />
+      <h1 style={{ marginTop: 20, marginBottom: 20 }}>Made By</h1>
+      <div>
+        <Row gutter={16}>
+          <Col span={8}>
+            <ImageCard userName={'sasumpi123'} />
+          </Col>
+          <Col span={8}>
+            <ImageCard userName={'pointehd'} />
+          </Col>
+          <Col span={8}>
+            <ImageCard userName={'thjang94'} />
+          </Col>
+        </Row>
+      </div>
     </>
   );
 };
