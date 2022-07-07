@@ -23,7 +23,7 @@ export const Sider: React.FC<IProps> = ({}) => {
     >
       <Icon
         onClick={() => {
-          router.push('/');
+          router.push('/about');
         }}
       ></Icon>
       <Navigation />
