@@ -1,8 +1,8 @@
 import { IProps } from './types';
-import { Card as AntdCard, Divider, Tag } from 'antd';
+import { Card as AntdCard } from 'antd';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import Link from 'next/link';
+import { Spinner } from '../../Spinner';
 
 const { Meta } = AntdCard;
 export const ImageCard: React.FC<IProps> = ({ userName }) => {
@@ -21,19 +21,19 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
     setUrl(avatar_url);
     setName(name);
     setEmail(email);
-    setHtmlUrl(htmlUrl);
+    setHtmlUrl(html_url);
   };
 
   useEffect(() => {
     handleCallApi(userName);
   }, []);
 
+  if (loading) return <Spinner />;
   return (
     <AntdCard
       hoverable
       style={{ width: 240 }}
       cover={<img alt={userName} src={url} />}
-      loading={loading}
       onClick={() => {
         window.open(`${htmlUrl}`, '_blank');
       }}
