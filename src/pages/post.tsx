@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import axios from 'axios';
-import { Card } from '../components/containers/Card';
+import { PostCard } from '../components/containers/PostCard';
 import { Spinner } from '../components/containers/Spinner';
 import useIntersectionObserver from '../hook/useIntersectionObserver';
 import { useState, useEffect } from 'react';
@@ -40,8 +40,7 @@ const PostPage: NextPage = () => {
   useEffect(() => {
     const handleCallApi = async () => {
       setLoading(true);
-      if (searchText) {
-      }
+
       try {
         const searchUrl =
           searchText === ''
@@ -82,7 +81,7 @@ const PostPage: NextPage = () => {
       {!error &&
         postList &&
         postList.map((post: any, index: number) => {
-          return <Card post={post} key={index} />;
+          return <PostCard post={post} key={index} />;
         })}
 
       <div ref={setTarget}>{loading && <Spinner />}</div>

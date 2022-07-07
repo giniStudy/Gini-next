@@ -1,7 +1,7 @@
 import { IProps } from './types';
 import { Card as AntdCard, Divider, Tag } from 'antd';
 
-export const Card: React.FC<IProps> = ({ post }) => {
+export const PostCard: React.FC<IProps> = ({ post }) => {
   const tagAry = [
     'JAVA',
     'JAVASCRIPT',
