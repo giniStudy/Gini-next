@@ -2,19 +2,28 @@ import type { AppProps } from 'next/app';
 import 'antd/dist/antd.css';
 import { Layout } from 'antd';
 import { Footer, Sider, Content } from '../components/layout';
+import { QueryClient, QueryClientProvider } from 'react-query';
+import { ReactQueryDevtools } from 'react-query/devtools';
+import { useState } from 'react';
 
 function MyApp({ Component, pageProps }: AppProps) {
+  const [queryClient] = useState(() => new QueryClient());
+
   return (
     <>
-      <Layout hasSider>
-        <Sider />
-        <Layout style={{ marginLeft: 200 }}>
-          <Content>
-            <Component {...pageProps} />
-          </Content>
-          <Footer />
+      <QueryClientProvider client={queryClient}>
+        <Layout hasSider>
+          <Sider />
+          <Layout style={{ marginLeft: 200 }}>
+            <Content>
+              <Component {...pageProps} />
+            </Content>
+            <Footer />
+          </Layout>
         </Layout>
-      </Layout>
+
+        <ReactQueryDevtools initialIsOpen={false} />
+      </QueryClientProvider>
     </>
   );
 }
