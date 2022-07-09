@@ -3,11 +3,28 @@ import axios from 'axios';
 import nextBase64 from 'next-base64';
 import { IProps as DetailProps } from './types';
 import { marked } from 'marked';
+import { Col, Row } from 'antd';
+import { InfoCard } from '../../components/containers/Card/InfoCard';
 
 const AboutDetailPage: NextPage<DetailProps> = (data) => {
   const { gitData, readMeHtml } = data;
-  console.log(gitData);
-  return <div dangerouslySetInnerHTML={{ __html: readMeHtml }} />;
+  const testAry = [
+    'sasumpi123/Alphago',
+    'giniStudy/Gini-next',
+    'giniStudy/backend',
+    'giniStudy/G-Backend',
+  ];
+
+  return (
+    <>
+      <div dangerouslySetInnerHTML={{ __html: readMeHtml }} />
+      <Row gutter={16}>
+        {testAry.map((path) => {
+          return <InfoCard repoPath={path} key={path} />;
+        })}
+      </Row>
+    </>
+  );
 };
 export default AboutDetailPage;
 
