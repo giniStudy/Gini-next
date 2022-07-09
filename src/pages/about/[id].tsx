@@ -32,7 +32,7 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.query;
 
   const headers4github = {
-    Authorization: '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',
+    Authorization: 'secret',
   };
   const { data: gitData } = await axios.get(
     `https://api.github.com/users/${id}`,
