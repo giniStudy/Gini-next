@@ -1,13 +1,14 @@
 import { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import nextBase64 from 'next-base64';
-import { IProps as DetailProps } from './types';
+import { DetailProps } from './types';
 import { marked } from 'marked';
-import { Row } from 'antd';
+import { Row, Divider, Typography } from 'antd';
 import { InfoCard } from '../../components/containers/Card/InfoCard';
 
+const { Title } = Typography;
 const AboutDetailPage: NextPage<DetailProps> = (data) => {
-  const { gitData, readMeHtml } = data;
+  const { gitData, readMeHtml, id } = data;
   const testAry = [
     'sasumpi123/Alphago',
     'giniStudy/Gini-next',
@@ -15,14 +16,25 @@ const AboutDetailPage: NextPage<DetailProps> = (data) => {
     'giniStudy/G-Backend',
   ];
 
+  const githubContributionPath = `https://ghchart.rshah.org/${id}`;
   return (
     <>
+      <Divider>
+        <Title>About Me!</Title>
+      </Divider>
       <div dangerouslySetInnerHTML={{ __html: readMeHtml }} />
+      <Divider>
+        <Title>GitHub Repositories</Title>
+      </Divider>
       <Row gutter={16}>
         {testAry.map((path) => {
           return <InfoCard repoPath={path} key={path} />;
         })}
       </Row>
+      <Divider>
+        <Title>Contributions</Title>
+      </Divider>
+      <img src={githubContributionPath} />
     </>
   );
 };
@@ -47,6 +59,6 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const readMeHtml = marked(nextBase64.decode(readMe.content));
 
   return {
-    props: { gitData, readMeHtml: readMeHtml },
+    props: { gitData, readMeHtml: readMeHtml, id: id },
   };
 };

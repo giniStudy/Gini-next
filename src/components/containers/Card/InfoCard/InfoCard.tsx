@@ -1,5 +1,5 @@
 import { IProps } from './types';
-import { Card as AntdCard, Col, Typography } from 'antd';
+import { Card as AntdCard, Col, Typography, Badge } from 'antd';
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Spinner } from '../../Spinner';
@@ -27,21 +27,26 @@ export const InfoCard: React.FC<IProps> = ({ repoPath }) => {
     handleGetRepoData(repoPath);
   }, []);
 
-  const { html_url, name, description } = repoInfo;
+  const { html_url, name, description, stargazers_count } = repoInfo;
   if (loading) return <Spinner />;
   return (
-    <Col span={8} style={{ marginBottom: 15 }}>
-      <AntdCard
-        title={name}
-        bordered={true}
-        onClick={() => {
-          window.open(`${html_url}`, '_blank');
-        }}
-        hoverable={true}
-        style={{ minHeight: 200, maxHeight: 200 }}
-      >
-        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
-      </AntdCard>
+    <Col
+      span={8}
+      style={{ marginBottom: 15 }}
+      onClick={() => {
+        window.open(`${html_url}`, '_blank');
+      }}
+    >
+      <Badge.Ribbon color="yellow" text={`${stargazers_count} Stars`}>
+        <AntdCard
+          title={name}
+          bordered={true}
+          hoverable={true}
+          style={{ minHeight: 200, maxHeight: 200 }}
+        >
+          <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
+        </AntdCard>
+      </Badge.Ribbon>
     </Col>
   );
 };
