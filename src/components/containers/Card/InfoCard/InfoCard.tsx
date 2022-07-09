@@ -13,7 +13,7 @@ export const InfoCard: React.FC<IProps> = ({ repoPath }) => {
   const handleGetRepoData = async (path: string) => {
     setLoading(true);
     const headers4github = {
-      Authorization: 'secret',
+      Authorization: process.env.GITHUB_AUTHORIZATION_TOKEN,
     };
     const { data } = await axios.get(`https://api.github.com/repos/${path}`, {
       headers: headers4github,

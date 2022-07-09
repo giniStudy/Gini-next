@@ -3,7 +3,7 @@ import axios from 'axios';
 import nextBase64 from 'next-base64';
 import { IProps as DetailProps } from './types';
 import { marked } from 'marked';
-import { Col, Row } from 'antd';
+import { Row } from 'antd';
 import { InfoCard } from '../../components/containers/Card/InfoCard';
 
 const AboutDetailPage: NextPage<DetailProps> = (data) => {
@@ -32,8 +32,9 @@ export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.query;
 
   const headers4github = {
-    Authorization: 'secret',
+    Authorization: process.env.GITHUB_AUTHORIZATION_TOKEN,
   };
+
   const { data: gitData } = await axios.get(
     `https://api.github.com/users/${id}`,
     { headers: headers4github },

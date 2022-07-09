@@ -15,7 +15,7 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
   const handleCallApi = async (userName: string) => {
     setLoading(true);
     const headers = {
-      Authorization: 'secret',
+      Authorization: process.env.GITHUB_AUTHORIZATION_TOKEN,
     };
     const { data } = await axios.get(
       `https://api.github.com/users/${userName}`,
