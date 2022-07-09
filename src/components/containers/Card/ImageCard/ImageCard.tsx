@@ -3,6 +3,7 @@ import { Card as AntdCard } from 'antd';
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Spinner } from '../../Spinner';
+import { useRouter } from 'next/router';
 
 const { Meta } = AntdCard;
 export const ImageCard: React.FC<IProps> = ({ userName }) => {
@@ -10,18 +11,17 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
   const [name, setName] = useState<string>('');
   const [email, setEmail] = useState<string>('');
   const [url, setUrl] = useState<string>('');
-  const [htmlUrl, setHtmlUrl] = useState<string>('');
+  const router = useRouter();
   const handleCallApi = async (userName: string) => {
     setLoading(true);
     const { data } = await axios.get(
       `https://api.github.com/users/${userName}`,
     );
     setLoading(false);
-    const { avatar_url, name, html_url, email } = data;
+    const { avatar_url, name, email } = data;
     setUrl(avatar_url);
     setName(name);
     setEmail(email);
-    setHtmlUrl(html_url);
   };
 
   useEffect(() => {
@@ -32,10 +32,10 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
   return (
     <AntdCard
       hoverable
-      style={{ width: 240 }}
-      cover={<img alt={userName} src={url} />}
+      style={{ width: 300 }}
+      cover={<img alt={name} src={url} />}
       onClick={() => {
-        window.open(`${htmlUrl}`, '_blank');
+        router.push(`/about/${userName}`);
       }}
     >
       <Meta title={name} description={email} />
