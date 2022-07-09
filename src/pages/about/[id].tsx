@@ -5,28 +5,30 @@ import { IProps as DetailProps } from './types';
 import { marked } from 'marked';
 
 const AboutDetailPage: NextPage<DetailProps> = (data) => {
-  const { gitData, readMe } = data;
-
-  const content = nextBase64.decode(readMe.content);
-  const result = marked(content);
-
-  return <div dangerouslySetInnerHTML={{ __html: result }} />;
+  const { gitData, readMeHtml } = data;
+  console.log(gitData);
+  return <div dangerouslySetInnerHTML={{ __html: readMeHtml }} />;
 };
 export default AboutDetailPage;
 
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const { id } = context.query;
 
-  const headers = { Authorization: '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' };
+  const headers4github = {
+    Authorization: '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',
+  };
   const { data: gitData } = await axios.get(
     `https://api.github.com/users/${id}`,
-    { headers },
+    { headers: headers4github },
   );
   const { data: readMe } = await axios.get(
     `https://api.github.com/repos/${id}/${id}/readme`,
-    { headers },
+    { headers: headers4github },
   );
+
+  const readMeHtml = marked(nextBase64.decode(readMe.content));
+
   return {
-    props: { gitData, readMe },
+    props: { gitData, readMeHtml: readMeHtml },
   };
 };

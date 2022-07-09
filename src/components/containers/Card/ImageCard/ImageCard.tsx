@@ -14,8 +14,12 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
   const router = useRouter();
   const handleCallApi = async (userName: string) => {
     setLoading(true);
+    const headers = {
+      Authorization: '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',
+    };
     const { data } = await axios.get(
       `https://api.github.com/users/${userName}`,
+      { headers },
     );
     setLoading(false);
     const { avatar_url, name, email } = data;
