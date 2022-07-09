@@ -1,6 +1,6 @@
 import { NextPage } from 'next';
 import axios from 'axios';
-import { PostCard } from '../components/containers/PostCard';
+import { PostCard } from '../components/containers/Card/PostCard';
 import { Spinner } from '../components/containers/Spinner';
 import useIntersectionObserver from '../hook/useIntersectionObserver';
 import { useState, useEffect } from 'react';
