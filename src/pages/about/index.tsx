@@ -1,5 +1,4 @@
 import { NextPage } from 'next';
-import { MarkdownViewer } from '../../components/containers/Markdown';
 import { ImageCard } from '../../components/containers/Card/ImageCard';
 import { Col, Row } from 'antd';
 import { marked } from 'marked';

@@ -40,42 +40,7 @@ export const InfoCard: React.FC<IProps> = ({ repoPath }) => {
         hoverable={true}
         style={{ minHeight: 200, maxHeight: 200 }}
       >
-        <Paragraph ellipsis={false}>
-          {description}test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-          test text
-          <br />
-        </Paragraph>
+        <Paragraph ellipsis={{ rows: 3 }}>{description}</Paragraph>
       </AntdCard>
     </Col>
   );
