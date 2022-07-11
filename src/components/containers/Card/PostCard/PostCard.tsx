@@ -1,7 +1,9 @@
 import { IProps } from './types';
 import { Card as AntdCard, Divider, Tag } from 'antd';
+import { useRouter } from 'next/router';
 
 export const PostCard: React.FC<IProps> = ({ post }) => {
+  const router = useRouter();
   const tagAry = [
     'JAVA',
     'JAVASCRIPT',
@@ -38,9 +40,11 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
     'geekblue',
     'purple',
   ];
+
+  const { id, title } = post;
   return (
     <AntdCard
-      title={post.title}
+      title={title}
       bordered={true}
       hoverable={true}
       style={{
@@ -50,6 +54,9 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
         textAlign: 'left',
       }}
       loading={!post}
+      onClick={() => {
+        router.push(`/post/${id}`);
+      }}
     >
       <p>Card content</p>
       <p>Card content</p>

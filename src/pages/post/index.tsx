@@ -1,12 +1,12 @@
 import { NextPage } from 'next';
 import axios from 'axios';
-import { PostCard } from '../components/containers/Card/PostCard';
-import { Spinner } from '../components/containers/Spinner';
-import useIntersectionObserver from '../hook/useIntersectionObserver';
+import { PostCard } from '../../components/containers/Card/PostCard';
+import { Spinner } from '../../components/containers/Spinner';
+import useIntersectionObserver from '../../hook/useIntersectionObserver';
 import { useState, useEffect } from 'react';
-import { IPostListResponse, Post } from '../interfaces/post';
+import { IPostListResponse, Post } from '../../interfaces/post';
 import { Empty } from 'antd';
-import { SearchInput } from '../components/containers/SearchInput';
+import { SearchInput } from '../../components/containers/SearchInput';
 
 const PAGE_SIZE = 10;
 
