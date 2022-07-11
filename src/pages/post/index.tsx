@@ -32,17 +32,17 @@ const PostPage: NextPage = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     const scrollInfoObj: PostListScrollInfo = JSON.parse(
       sessionStorage.getItem('postListScrollInfo') || '{}',
     );
     setSearchText(scrollInfoObj?.searchText || '');
+    setLoading(false);
     animateScroll.scrollTo(scrollInfoObj?.postListScrollY || 0);
-    sessionStorage.removeItem('postListScrollInfo');
   }, []);
 
   const handleCallApi = async () => {
     setLoading(true);
-
     try {
       const searchUrl =
         searchText === ''
@@ -50,7 +50,6 @@ const PostPage: NextPage = () => {
           : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${encodeURIComponent(
               searchText.trim(),
             )}`;
-      console.log(searchText);
       const { data } = await axios.get<IPostListResponse>(searchUrl);
       const { postList: fetchedPostList, totalCount } = data;
 
@@ -59,6 +58,7 @@ const PostPage: NextPage = () => {
     } catch (e) {
       setError(e);
     } finally {
+      sessionStorage.removeItem('postListScrollInfo');
       setLoading(false);
     }
   };
