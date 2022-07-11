@@ -17,7 +17,7 @@ const useIntersectionObserver = ({
       {
         root,
         rootMargin,
-        threshold: 1.0,
+        threshold,
       },
     );
     observer.observe(target);
