@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { IPostListResponse, Post } from '../interfaces/post';
 import { Empty } from 'antd';
 import { SearchInput } from '../components/containers/SearchInput';
+import { encode } from 'next-base64/dist/base64-browser';
 
 const PAGE_SIZE = 10;
 
@@ -16,7 +17,6 @@ const PostPage: NextPage = () => {
   const [page, setPage] = useState<number>(1);
   const [total, setTotal] = useState<number>(1);
   const [error, setError] = useState<any>(undefined);
-  const [needDataRefresh, setNeedDataRefresh] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
 
   const onIntersect: IntersectionObserverCallback = async (
@@ -30,33 +30,29 @@ const PostPage: NextPage = () => {
     }
   };
 
-  useEffect(() => {
-    if (needDataRefresh) {
-      setPostList([]);
-      setNeedDataRefresh(false);
+  const handleCallApi = async () => {
+    setLoading(true);
+
+    try {
+      const searchUrl =
+        searchText === ''
+          ? `/api/post?page=${page}&size=${PAGE_SIZE}`
+          : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${encodeURIComponent(
+              searchText,
+            )}`;
+      const { data } = await axios.get<IPostListResponse>(searchUrl);
+      const { postList: fetchedPostList, totalCount } = data;
+
+      setTotal(totalCount);
+      await setPostList(postList.concat(fetchedPostList));
+    } catch (e) {
+      setError(e);
+    } finally {
+      setLoading(false);
     }
-  }, [needDataRefresh]);
+  };
 
   useEffect(() => {
-    const handleCallApi = async () => {
-      setLoading(true);
-
-      try {
-        const searchUrl =
-          searchText === ''
-            ? `/api/post?page=${page}&size=${PAGE_SIZE}`
-            : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${searchText}`;
-        const { data } = await axios.get<IPostListResponse>(searchUrl);
-        const { postList: fetchedPostList, totalCount } = data;
-
-        setTotal(totalCount);
-        await setPostList(postList.concat(fetchedPostList));
-      } catch (e) {
-        setError(e);
-      } finally {
-        setLoading(false);
-      }
-    };
     handleCallApi();
   }, [page, searchText]);
 
@@ -68,9 +64,11 @@ const PostPage: NextPage = () => {
   });
 
   const handleOnSearch = (value: string) => {
-    setNeedDataRefresh(true);
+    setPostList([]);
+    setPage(1);
     setSearchText(value);
   };
+
   return (
     <>
       <div style={{ marginBottom: 30 }}>
