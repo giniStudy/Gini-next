@@ -2,7 +2,7 @@ import { IProps } from './types';
 import { Card as AntdCard, Divider, Tag } from 'antd';
 import { useRouter } from 'next/router';
 
-export const PostCard: React.FC<IProps> = ({ post }) => {
+export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
   const router = useRouter();
   const tagAry = [
     'JAVA',
@@ -55,6 +55,7 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
       }}
       loading={!post}
       onClick={() => {
+        saveScrollInfo();
         router.push(`/post/${id}`);
       }}
     >

@@ -11,7 +11,7 @@ export const Navigation: React.FC<IProps> = ({}) => {
   const menuItems = [
     {
       key: 'post',
-      label: <Link href="/post?page=1">Blog</Link>,
+      label: <Link href="/post">Blog</Link>,
     },
     {
       key: 'about',

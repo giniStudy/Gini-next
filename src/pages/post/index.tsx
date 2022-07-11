@@ -7,6 +7,8 @@ import { useState, useEffect } from 'react';
 import { IPostListResponse, Post } from '../../interfaces/post';
 import { Empty } from 'antd';
 import { SearchInput } from '../../components/containers/SearchInput';
+import { PostListScrollInfo } from './types';
+import { animateScroll } from 'react-scroll';
 
 const PAGE_SIZE = 10;
 
@@ -29,6 +31,15 @@ const PostPage: NextPage = () => {
     }
   };
 
+  useEffect(() => {
+    const scrollInfoObj: PostListScrollInfo = JSON.parse(
+      sessionStorage.getItem('postListScrollInfo') || '{}',
+    );
+    setSearchText(scrollInfoObj?.searchText || '');
+    animateScroll.scrollTo(scrollInfoObj?.postListScrollY || 0);
+    sessionStorage.removeItem('postListScrollInfo');
+  }, []);
+
   const handleCallApi = async () => {
     setLoading(true);
 
@@ -37,8 +48,9 @@ const PostPage: NextPage = () => {
         searchText === ''
           ? `/api/post?page=${page}&size=${PAGE_SIZE}`
           : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${encodeURIComponent(
-              searchText,
+              searchText.trim(),
             )}`;
+      console.log(searchText);
       const { data } = await axios.get<IPostListResponse>(searchUrl);
       const { postList: fetchedPostList, totalCount } = data;
 
@@ -68,6 +80,14 @@ const PostPage: NextPage = () => {
     setSearchText(value);
   };
 
+  const saveScrollInfo = () => {
+    const scrollInfoObj: PostListScrollInfo = {
+      postListScrollY: window.scrollY,
+      searchText: searchText,
+    };
+    sessionStorage.setItem('postListScrollInfo', JSON.stringify(scrollInfoObj));
+  };
+
   return (
     <>
       <div style={{ marginBottom: 30 }}>
@@ -78,7 +98,9 @@ const PostPage: NextPage = () => {
       {!error &&
         postList &&
         postList.map((post: any, index: number) => {
-          return <PostCard post={post} key={index} />;
+          return (
+            <PostCard post={post} key={index} saveScrollInfo={saveScrollInfo} />
+          );
         })}
 
       <div ref={setTarget}>{loading && <Spinner />}</div>
