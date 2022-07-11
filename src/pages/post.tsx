@@ -7,7 +7,6 @@ import { useState, useEffect } from 'react';
 import { IPostListResponse, Post } from '../interfaces/post';
 import { Empty } from 'antd';
 import { SearchInput } from '../components/containers/SearchInput';
-import { encode } from 'next-base64/dist/base64-browser';
 
 const PAGE_SIZE = 10;
 
