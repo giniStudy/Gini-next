@@ -7,4 +7,5 @@ export interface DetailProps {
 export interface PostListScrollInfo {
   postListScrollY: number;
   searchText: string;
+  searchTags: string[];
 }

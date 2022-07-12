@@ -1,6 +1,8 @@
 import { IProps } from './types';
-import { Card as AntdCard, Divider, Tag } from 'antd';
+import { Card as AntdCard, Divider, Tag, Typography } from 'antd';
 import { useRouter } from 'next/router';
+
+const { Paragraph } = Typography;
 
 export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
   const router = useRouter();
@@ -27,6 +29,7 @@ export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
     'SPA',
     'MYSQL',
   ];
+
   const colorAry = [
     'magenta',
     'red',
@@ -40,8 +43,8 @@ export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
     'geekblue',
     'purple',
   ];
+  const { id, title, content } = post;
 
-  const { id, title } = post;
   return (
     <AntdCard
       title={title}
@@ -59,9 +62,8 @@ export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
         router.push(`/post/${id}`);
       }}
     >
-      <p>Card content</p>
-      <p>Card content</p>
-      <p>Card content</p>
+      <Paragraph ellipsis={{ rows: 3 }}>{content.repeat(100)}</Paragraph>
+
       {tagAry && (
         <>
           <Divider orientation="left">HashTag</Divider>

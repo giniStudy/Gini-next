@@ -5,12 +5,13 @@ import { Spinner } from '../../components/containers/Spinner';
 import useIntersectionObserver from '../../hook/useIntersectionObserver';
 import { useState, useEffect } from 'react';
 import { IPostListResponse, Post } from '../../interfaces/post';
-import { Empty } from 'antd';
+import { Empty, Select } from 'antd';
 import { SearchInput } from '../../components/containers/SearchInput';
 import { PostListScrollInfo } from './types';
 import { animateScroll } from 'react-scroll';
 
 const PAGE_SIZE = 10;
+const { Option } = Select;
 
 const PostPage: NextPage = () => {
   const [postList, setPostList] = useState<Post[]>([]);
@@ -19,6 +20,7 @@ const PostPage: NextPage = () => {
   const [total, setTotal] = useState<number>(1);
   const [error, setError] = useState<any>(undefined);
   const [searchText, setSearchText] = useState<string>('');
+  const [searchTags, setSearchTags] = useState<string[]>(['']);
 
   const onIntersect: IntersectionObserverCallback = async (
     [entry],
@@ -32,25 +34,27 @@ const PostPage: NextPage = () => {
   };
 
   useEffect(() => {
-    setLoading(true);
     const scrollInfoObj: PostListScrollInfo = JSON.parse(
       sessionStorage.getItem('postListScrollInfo') || '{}',
     );
     setSearchText(scrollInfoObj?.searchText || '');
-    setLoading(false);
+    setSearchTags(scrollInfoObj?.searchTags || ['']);
     animateScroll.scrollTo(scrollInfoObj?.postListScrollY || 0);
   }, []);
 
   const handleCallApi = async () => {
     setLoading(true);
     try {
-      const searchUrl =
-        searchText === ''
-          ? `/api/post?page=${page}&size=${PAGE_SIZE}`
-          : `/api/post?page=${page}&size=${PAGE_SIZE}&searchText=${encodeURIComponent(
-              searchText.trim(),
-            )}`;
-      const { data } = await axios.get<IPostListResponse>(searchUrl);
+      const searchUrl = `/api/post`;
+      const param = {
+        page: page,
+        size: PAGE_SIZE,
+        searchText: searchText || '',
+        tags: searchTags.join(','),
+      };
+      const { data } = await axios.get<IPostListResponse>(searchUrl, {
+        params: param,
+      });
       const { postList: fetchedPostList, totalCount } = data;
 
       setTotal(totalCount);
@@ -65,7 +69,7 @@ const PostPage: NextPage = () => {
 
   useEffect(() => {
     handleCallApi();
-  }, [page, searchText]);
+  }, []);
 
   const { setTarget } = useIntersectionObserver({
     root: null,
@@ -84,14 +88,38 @@ const PostPage: NextPage = () => {
     const scrollInfoObj: PostListScrollInfo = {
       postListScrollY: window.scrollY,
       searchText: searchText,
+      searchTags: searchTags,
     };
     sessionStorage.setItem('postListScrollInfo', JSON.stringify(scrollInfoObj));
   };
+
+  const handleTagChange = (value: string[]) => {
+    setSearchTags(value);
+  };
+
+  const tagAry = [
+    'JAVA',
+    'JAVASCRIPT',
+    'NODE',
+    'TIL',
+    'REACT',
+    'SPA',
+    'MYSQL',
+  ].map((e) => <Option key={e}>{e}</Option>);
 
   return (
     <>
       <div style={{ marginBottom: 30 }}>
         <SearchInput onSearch={handleOnSearch} loading={loading} />
+        <Select
+          mode="multiple"
+          allowClear
+          style={{ width: '70%' }}
+          placeholder="Tags"
+          onChange={handleTagChange}
+        >
+          {tagAry}
+        </Select>
       </div>
 
       {(!postList || total === 0) && <Empty />}
