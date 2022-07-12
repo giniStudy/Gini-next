@@ -28,7 +28,7 @@ const PostPage: NextPage = () => {
   ) => {
     if (entry.isIntersecting && !loading) {
       observer.unobserve(entry.target);
-      if (!loading && total > page * PAGE_SIZE) setPage(page + 1);
+      if (!loading! && total > page * PAGE_SIZE) setPage(page + 1);
       observer.observe(entry.target);
     }
   };
@@ -49,7 +49,7 @@ const PostPage: NextPage = () => {
       const param = {
         page: page,
         size: PAGE_SIZE,
-        searchText: searchText || '',
+        searchText: searchText,
         tags: searchTags.join(','),
       };
       const { data } = await axios.get<IPostListResponse>(searchUrl, {
@@ -69,7 +69,7 @@ const PostPage: NextPage = () => {
 
   useEffect(() => {
     handleCallApi();
-  }, []);
+  }, [page, searchText, searchTags]);
 
   const { setTarget } = useIntersectionObserver({
     root: null,
@@ -114,8 +114,8 @@ const PostPage: NextPage = () => {
         <Select
           mode="multiple"
           allowClear
-          style={{ width: '70%' }}
-          placeholder="Tags"
+          style={{ width: '71%', textAlign: 'left' }}
+          placeholder="Search With Tags"
           onChange={handleTagChange}
         >
           {tagAry}
