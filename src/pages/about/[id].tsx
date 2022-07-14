@@ -1,13 +1,13 @@
 import { NextPage, GetServerSideProps } from 'next';
 import axios from 'axios';
 import nextBase64 from 'next-base64';
-import { DetailProps } from './types';
+import { AboutDetailProps } from '../../interfaces/about';
 import { marked } from 'marked';
 import { Row, Divider, Typography } from 'antd';
 import { InfoCard } from '../../components/containers/Card/InfoCard';
 
 const { Title } = Typography;
-const AboutDetailPage: NextPage<DetailProps> = (data) => {
+const AboutDetailPage: NextPage<AboutDetailProps> = (data) => {
   const { gitData, readMeHtml, id } = data;
   const testAry = [
     'sasumpi123/Alphago',
