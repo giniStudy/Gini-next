@@ -13,7 +13,7 @@ on:
 env:
   S3_BUCKET_NAME: joycode
   CODE_DEPLOY_APPLICATION_NAME: joy-code-deploy
-  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: joy-serve
+  CODE_DEPLOY_DEPLOYMENT_GROUP_NAME: joy-server
   
 jobs:
   build:
