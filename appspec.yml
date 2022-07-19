@@ -14,5 +14,5 @@ permissions:
 hooks:
   ApplicationStart:
     - location: buildScript/build-joy.sh
-      timeout: 120
+      timeout: 240
       runas: ec2-user
