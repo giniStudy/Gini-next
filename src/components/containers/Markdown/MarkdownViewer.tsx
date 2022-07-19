@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { MDEditorProps } from '@uiw/react-md-editor';
 import dynamic from 'next/dynamic';
 import '@uiw/react-md-editor/markdown-editor.css';

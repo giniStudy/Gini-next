@@ -6,12 +6,12 @@ import { useRouter } from 'next/router';
 
 export const Navigation: React.FC<IProps> = ({}) => {
   const router = useRouter();
-  const currentPath = router.pathname.substr(1);
+  const currentPath = router.pathname.split('/')[1];
 
   const menuItems = [
     {
       key: 'post',
-      label: <Link href="/post?page=1">Blog</Link>,
+      label: <Link href="/post">Blog</Link>,
     },
     {
       key: 'about',
