@@ -1,6 +1,6 @@
 import { NextPage, GetServerSideProps } from 'next';
 import { Typography } from 'antd';
-import { DetailProps } from './types';
+import { DetailProps } from '../../interfaces/post';
 import postList from '../api/data.json';
 
 const { Title } = Typography;

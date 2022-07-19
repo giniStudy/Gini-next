@@ -4,7 +4,7 @@ import { useRouter } from 'next/router';
 
 const { Paragraph } = Typography;
 
-export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
+export const PostCard: React.FC<IProps> = ({ post }) => {
   const router = useRouter();
   const tagAry = [
     'JAVA',
@@ -58,7 +58,6 @@ export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
       }}
       loading={!post}
       onClick={() => {
-        saveScrollInfo();
         router.push(`/post/${id}`);
       }}
     >
@@ -66,7 +65,7 @@ export const PostCard: React.FC<IProps> = ({ post, saveScrollInfo }) => {
 
       {tagAry && (
         <>
-          <Divider orientation="left">HashTag</Divider>
+          <Divider></Divider>
           <div>
             {tagAry.sort().map((s, idx) => {
               return (
