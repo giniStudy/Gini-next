@@ -41,7 +41,6 @@ jobs:
        # [3]  
       - name: Make zip file
         run: zip -r ./$GITHUB_SHA.zip .
-        working-directory: joylog-blog
         shell: bash
         
         # [4]
@@ -55,7 +54,6 @@ jobs:
          # [5]
       - name: Upload to S3
         run: aws s3 cp --region ap-northeast-2 ./$GITHUB_SHA.zip s3://$S3_BUCKET_NAME/$GITHUB_SHA.zip
-        working-directory: joylog-blog
         
        # [6]
       - name: Code Deploy
