@@ -12,7 +12,7 @@ permissions:
     group: ec2-user
 
 hooks:
-  # ApplicationStart:
-  #   - location: buildScript/build-joy.sh
-  #     timeout: 60
-  #     runas: ec2-user
+  ApplicationStart:
+    - location: buildScript/build-joy.sh
+      timeout: 120
+      runas: ec2-user
