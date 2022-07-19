@@ -1,13 +1,13 @@
 #!/bin/bash
 
-docker stop joyfront
+docker rm -f joyfront
 
-docker rm joyfront
+docker rmi joyfront
 
 cd /home/ec2-user/front
 
-mv ../next/.env ./.env
+cp ../next/.env ./.env
 
 docker build -t joyfront .
 
-docker run -p 3000:3000 -d --name joylog joyfront
+docker run -p 3000:3000 -d --name joyfront joyfront
