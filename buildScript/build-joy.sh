@@ -4,7 +4,7 @@ docker stop joyfront
 
 docker rm joyfront
 
-cd /home/ec2-user/fornt
+cd /home/ec2-user/front
 
 mv ../next/.env ./.env
 
