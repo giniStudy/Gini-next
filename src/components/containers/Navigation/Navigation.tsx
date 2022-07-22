@@ -17,6 +17,7 @@ export const Navigation: React.FC<IProps> = ({}) => {
       key: 'about',
       label: <Link href="/about">About Us</Link>,
     },
+    //TODO: 추후에 작업
     // {
     //   key: 'dev',
     //   label: <Link href="/dev">Dev News</Link>,
