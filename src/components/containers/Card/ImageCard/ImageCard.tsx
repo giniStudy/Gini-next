@@ -36,7 +36,6 @@ export const ImageCard: React.FC<IProps> = ({ userName }) => {
   return (
     <AntdCard
       hoverable
-      style={{ width: 300 }}
       cover={<img alt={name} src={url} />}
       onClick={() => {
         router.push(`/about/${userName}`);

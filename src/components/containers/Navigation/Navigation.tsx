@@ -27,7 +27,7 @@ export const Navigation: React.FC<IProps> = ({}) => {
     <Menu
       defaultOpenKeys={[currentPath]}
       selectedKeys={[currentPath]}
-      mode="vertical"
+      mode="horizontal"
       style={{ background: '#C8C7C3' }}
       theme={'dark'}
       items={menuItems}
