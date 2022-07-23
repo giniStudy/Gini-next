@@ -5,7 +5,7 @@ import type { PaginationProps } from 'antd';
 import { useState } from 'react';
 import { Empty, Select, Pagination } from 'antd';
 import { SearchInput } from '../../components/containers/SearchInput';
-import usePosts from '../../hook/usePosts';
+import usePosts from '../../hooks/usePosts';
 
 const PAGE_SIZE = 10;
 const { Option } = Select;
