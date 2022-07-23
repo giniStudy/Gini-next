@@ -64,7 +64,7 @@ const PostPage: NextPage = () => {
       </div>
 
       {loading && <Spinner />}
-      {(!posts || totalCount === 0) && <Empty />}
+      {totalCount === 0 && <Empty />}
       {!error &&
         posts &&
         posts.map((post: any, index: number) => {
