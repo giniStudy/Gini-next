@@ -1,4 +1,4 @@
-import { NextPage } from 'next';
+import { NextPage, GetServerSideProps } from 'next';
 import { PostCard } from '../../components/containers/Card/PostCard';
 import { Spinner } from '../../components/containers/Spinner';
 import type { PaginationProps } from 'antd';
@@ -11,6 +11,7 @@ const PAGE_SIZE = 10;
 const { Option } = Select;
 
 const PostPage: NextPage = (data) => {
+  // TODO: 임시
   const { tagAry } = data;
   const [page, setPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>('');
@@ -50,6 +51,7 @@ const PostPage: NextPage = (data) => {
           placeholder="Search With Tags"
           onChange={handleTagChange}
         >
+          {/* TODO: 임시 */}
           {tagAry.map((e) => (
             <Option key={e}>{e}</Option>
           ))}
@@ -72,7 +74,7 @@ export default PostPage;
 export const getServerSideProps: GetServerSideProps = async (context: any) => {
   const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
 
-  // call api
+  // TODO: call api
   return {
     props: { tagAry: tagAry },
   };
