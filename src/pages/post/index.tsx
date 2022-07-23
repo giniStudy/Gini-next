@@ -10,7 +10,8 @@ import usePosts from '../../hook/usePosts';
 const PAGE_SIZE = 10;
 const { Option } = Select;
 
-const PostPage: NextPage = () => {
+const PostPage: NextPage = (data) => {
+  const { tagAry } = data;
   const [page, setPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>('');
   const [searchTags, setSearchTags] = useState<string[]>(['']);
@@ -38,16 +39,6 @@ const PostPage: NextPage = () => {
     setPage(page);
   };
 
-  const tagAry = [
-    'JAVA',
-    'JAVASCRIPT',
-    'NODE',
-    'TIL',
-    'REACT',
-    'SPA',
-    'MYSQL',
-  ].map((e) => <Option key={e}>{e}</Option>);
-
   return (
     <>
       <div style={{ marginBottom: 30 }}>
@@ -59,7 +50,9 @@ const PostPage: NextPage = () => {
           placeholder="Search With Tags"
           onChange={handleTagChange}
         >
-          {tagAry}
+          {tagAry.map((e) => (
+            <Option key={e}>{e}</Option>
+          ))}
         </Select>
       </div>
 
@@ -75,3 +68,12 @@ const PostPage: NextPage = () => {
   );
 };
 export default PostPage;
+
+export const getServerSideProps: GetServerSideProps = async (context: any) => {
+  const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
+
+  // call api
+  return {
+    props: { tagAry: tagAry },
+  };
+};
