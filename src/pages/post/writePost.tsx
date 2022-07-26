@@ -12,7 +12,7 @@ const MDEditor = dynamic<MDEditorProps>(() => import('@uiw/react-md-editor'), {
 const { Option } = Select;
 
 const WritePostPage: NextPage = (data) => {
-  const { tagAry } = data;
+  const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
   const [markdown, setMarkdown] = useState<string>('');
   const [tags, setTags] = useState<string[]>(tagAry);
   const [addTags, setAddTags] = useState<string[]>([]);
@@ -45,11 +45,9 @@ const WritePostPage: NextPage = (data) => {
 };
 export default WritePostPage;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
-
-  // TODO: call api
-  return {
-    props: { tagAry: tagAry },
-  };
-};
+// TODO: call api
+// export const getServerSideProps: GetServerSideProps = async (context: any) => {
+//   return {
+//     props: { tagAry: tagAry },
+//   };
+// };
