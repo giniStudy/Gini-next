@@ -12,7 +12,7 @@ const { Option } = Select;
 
 const PostPage: NextPage = (data) => {
   // TODO: 임시
-  const { tagAry } = data;
+  const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
   const [page, setPage] = useState<number>(1);
   const [searchText, setSearchText] = useState<string>('');
   const [searchTags, setSearchTags] = useState<string[]>(['']);
@@ -71,11 +71,9 @@ const PostPage: NextPage = (data) => {
 };
 export default PostPage;
 
-export const getServerSideProps: GetServerSideProps = async (context: any) => {
-  const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
-
-  // TODO: call api
-  return {
-    props: { tagAry: tagAry },
-  };
-};
+// TODO: call api
+// export const getServerSideProps: GetServerSideProps = async (context: any) => {
+//   return {
+//     props: { tagAry: tagAry },
+//   };
+// };
