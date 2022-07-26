@@ -1,3 +1,3 @@
 export * from './Footer';
 export * from './Content';
-export * from './Sider';
+export * from './Header';
