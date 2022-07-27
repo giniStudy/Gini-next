@@ -4,7 +4,8 @@ import { Layout } from 'antd';
 import { Footer, Content, Header } from '../components/layout';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'http://api.joylog.co.kr/';
+axios.defaults.baseURL = process.env.API_BASE_URL;
+axios.defaults.withCredentials = true;
 
 function MyApp({ Component, pageProps }: AppProps) {
   return (
