@@ -13,7 +13,7 @@ const { Option } = Select;
 const PostPage: NextPage = (data) => {
   // TODO: 임시
   const tagAry = ['JAVA', 'JAVASCRIPT', 'NODE', 'TIL', 'REACT', 'SPA', 'MYSQL'];
-  const [page, setPage] = useState<number>(1);
+  const [page, setPage] = useState<number>(0);
   const [searchText, setSearchText] = useState<string>('');
   const [searchTags, setSearchTags] = useState<string[]>(['']);
 
@@ -25,7 +25,7 @@ const PostPage: NextPage = (data) => {
   );
 
   const initPage = () => {
-    if (page !== 1) setPage(1);
+    if (page !== 0) setPage(0);
   };
 
   const handleOnSearch = (value: string) => {
@@ -47,7 +47,7 @@ const PostPage: NextPage = (data) => {
         <Select
           mode="multiple"
           allowClear
-          style={{ width: '71%', textAlign: 'left' }}
+          style={{ width: '70%', textAlign: 'left' }}
           placeholder="Search With Tags"
           onChange={handleTagChange}
         >
@@ -65,15 +65,8 @@ const PostPage: NextPage = (data) => {
         posts.map((post: any, index: number) => {
           return <PostCard post={post} key={index} />;
         })}
-      {<Pagination current={page} onChange={onChange} total={totalCount} />}
+      {<Pagination current={page + 1} onChange={onChange} total={totalCount} />}
     </>
   );
 };
 export default PostPage;
-
-// TODO: call api
-// export const getServerSideProps: GetServerSideProps = async (context: any) => {
-//   return {
-//     props: { tagAry: tagAry },
-//   };
-// };

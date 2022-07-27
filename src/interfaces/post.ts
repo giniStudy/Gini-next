@@ -1,12 +1,13 @@
 export interface IPostListResponse {
   totalCount: number;
-  postList: Post[];
+  list: Post[];
 }
 
 export interface Post {
   id: string;
   title: string;
   content: string;
+  tag: string[];
 }
 
 export interface DetailProps {

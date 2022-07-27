@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { IPostListResponse, Post } from '../interfaces/post';
 
 const usePosts = (
-  page: any,
+  page: number,
   size: number,
   searchText: string,
   tags: string[],
@@ -16,26 +16,20 @@ const usePosts = (
   useEffect(() => {
     const handleGetProductList = async () => {
       setLoading(true);
-      if (page && size) {
-        try {
-          const searchUrl = `/api/post`;
-          const param = {
-            page: page,
-            size: size,
-            searchText: searchText,
-            tags: tags.join(','),
-          };
-          const { data } = await axios.get<IPostListResponse>(searchUrl, {
-            params: param,
-          });
-          const { postList: fetchedPostList, totalCount } = data;
-          setPosts(fetchedPostList);
-          setTotalCount(totalCount);
-        } catch (e) {
-          setError(e);
-        } finally {
-          setLoading(false);
-        }
+
+      try {
+        let searchUrl = `/post?page=${page}&size=${size}`;
+        if (searchText !== '') searchUrl += `&searchText=${searchText}`;
+        if (tags && tags.length !== 0) searchUrl += `&tags=${tags.join(',')}`;
+
+        const { data } = await axios.get<IPostListResponse>(searchUrl);
+        const { list: fetchedPostList, totalCount } = data;
+        setPosts(fetchedPostList);
+        setTotalCount(totalCount);
+      } catch (e) {
+        setError(e);
+      } finally {
+        setLoading(false);
       }
     };
     handleGetProductList();

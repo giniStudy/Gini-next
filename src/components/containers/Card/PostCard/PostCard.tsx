@@ -6,29 +6,6 @@ const { Paragraph } = Typography;
 
 export const PostCard: React.FC<IProps> = ({ post }) => {
   const router = useRouter();
-  const tagAry = [
-    'JAVA',
-    'JAVASCRIPT',
-    'NODE',
-    'TIL',
-    'REACT',
-    'SPA',
-    'MYSQL',
-    'JAVA',
-    'JAVASCRIPT',
-    'NODE',
-    'TIL',
-    'REACT',
-    'SPA',
-    'MYSQL',
-    'JAVA',
-    'JAVASCRIPT',
-    'NODE',
-    'TIL',
-    'REACT',
-    'SPA',
-    'MYSQL',
-  ];
 
   const colorAry = [
     'magenta',
@@ -43,7 +20,7 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
     'geekblue',
     'purple',
   ];
-  const { id, title, content } = post;
+  const { id, title, content, tag: tagList } = post;
 
   return (
     <AntdCard
@@ -61,13 +38,13 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
         router.push(`/post/${id}`);
       }}
     >
-      <Paragraph ellipsis={{ rows: 3 }}>{content.repeat(100)}</Paragraph>
+      <Paragraph ellipsis={{ rows: 3 }}>{content}</Paragraph>
 
-      {tagAry && (
+      {tagList && (
         <>
           <Divider></Divider>
           <div>
-            {tagAry.sort().map((s, idx) => {
+            {tagList.sort().map((tag, idx) => {
               return (
                 <Tag
                   color={
@@ -78,7 +55,7 @@ export const PostCard: React.FC<IProps> = ({ post }) => {
                   key={idx}
                   style={{ marginBottom: 5 }}
                 >
-                  {s.toUpperCase()}
+                  {tag.toUpperCase()}
                 </Tag>
               );
             })}

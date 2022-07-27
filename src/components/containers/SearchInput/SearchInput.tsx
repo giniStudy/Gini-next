@@ -11,7 +11,7 @@ export const SearchInput: React.FC<IProps> = ({ onSearch, loading }) => {
       size="large"
       loading={loading}
       onSearch={onSearch}
-      style={{ padding: 15, width: '73%' }}
+      style={{ padding: 15, width: '71.5%' }}
     />
   );
 };
