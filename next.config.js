@@ -1,9 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  env: {
-    API_BASE_URL: 'http://joylog.co.kr/api',
-  },
   async redirects() {
     return [
       {
@@ -15,7 +12,10 @@ const nextConfig = {
   },
   async rewrites() {
     return [
-      { destination: `http://joylog.co.kr/api/:path*`, source: '/api/:path*' },
+      {
+        destination: `http://joylog.co.kr/api/:path*`,
+        source: '/api/:path*',
+      },
     ];
   },
 };

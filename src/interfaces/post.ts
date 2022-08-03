@@ -13,3 +13,7 @@ export interface Post {
 export interface DetailProps {
   post: Post;
 }
+
+export interface ITagListResponse {
+  tagList: string[];
+}
